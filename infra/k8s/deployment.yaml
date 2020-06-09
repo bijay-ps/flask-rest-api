@@ -23,7 +23,7 @@ metadata:
   name: flask-apis-service
 spec:
   selector:
-    app: flask-rest-apis
+    app: flask-apis
   ports:
     - port: 5000
       targetPort: 5000
