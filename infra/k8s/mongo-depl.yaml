@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-api-mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-api-mongo
+  template:
+    metadata:
+      labels:
+        app: flask-api-mongo
+    spec:
+      containers:
+        - name: flask-api-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-mongo-srvc
+spec:
+  selector:
+    app: flask-api-mongo
+  ports:
+    - name: flaskdb
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+

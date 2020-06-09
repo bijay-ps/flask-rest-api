@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-restapi-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-apis
+  template:
+    metadata:
+      labels:
+        app: flask-apis
+    spec:
+      containers:
+        - name: flask-api
+          image: bijayps/flask_apis
+          imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-apis-service
+spec:
+  selector:
+    app: flask-rest-apis
+  ports:
+    - port: 5000
+      targetPort: 5000
+      name: flask-rest-service
+      protocol: TCP

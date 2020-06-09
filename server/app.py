@@ -6,8 +6,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
-# app.secret.key = 'mySuperSecret'
-app.config['MONGO_URI'] = "mongodb://localhost:27017/flaskUsers"
+# for connecting to local mongo db
+# app.config['MONGO_URI'] = "mongodb://localhost:27017/flaskUsers"
+
+# for connecting to k8s pod running mongo container
+app.config['MONGO_URI'] = "mongodb://flask-mongo-srvc:27017/flaskUsers"
+
 mongo = PyMongo(app)
 
 allUsers = [{
