@@ -12,6 +12,8 @@ spec:
       labels:
         app: flask-api-mongo
     spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
       containers:
         - name: flask-api-mongo
           image: mongo

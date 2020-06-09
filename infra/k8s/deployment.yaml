@@ -12,6 +12,8 @@ spec:
       labels:
         app: flask-apis
     spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
       containers:
         - name: flask-api
           image: bijayps/flask_apis
@@ -22,6 +24,7 @@ kind: Service
 metadata:
   name: flask-apis-service
 spec:
+  type: LoadBalancer
   selector:
     app: flask-apis
   ports:
