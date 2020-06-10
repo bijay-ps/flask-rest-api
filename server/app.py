@@ -38,13 +38,15 @@ allUsers = [{
 # Populate DB with data
 @app.route('/')
 def populate_users():
-    for user in allUsers:
-        for data in user:
+    for userD in allUsers:
+        for data in userD:
             if data == 'password':
-                user[data] = generate_password_hash(user[data])
+                userD[data] = generate_password_hash(userD[data])
 
-    for user in allUsers:
-        mongo.db.users.insert(user)
+    for userD in allUsers:
+        userExists = mongo.db.users.find_one({'email': userD['email']})
+        if not userExists:
+            mongo.db.users.insert(userD)
 
     return 'User data populated successfully'
 
