@@ -18,7 +18,7 @@ allUsers = [{
     'name': 'Bijay',
     'email': 'bijay@test.com',
     'role': 'admin',
-    'password': '123456',
+    'password': 'test@123',
     'designation': 'Developer'
 }, {
     "name": "Sumit",
@@ -87,6 +87,26 @@ def users():
     retrievedUsers = mongo.db.users.find()
     res = dumps(retrievedUsers)
     return res, 200
+
+
+# Logging in a User
+@app.route('/login', methods=['POST'])
+def user_login():
+    _jsonData = request.json
+    _email = _jsonData['email']
+    _password = _jsonData['password']
+    retrievedUser = mongo.db.users.find_one({'email': _email})
+    if not retrievedUser:
+        message = "Invalid user details"
+        return jsonify(message), 400
+    else:
+        passwordMatch = check_password_hash(retrievedUser['password'], _password)
+        if passwordMatch:
+            message = "User logged in successfully"
+            return jsonify(message), 200
+        else:
+            message = "Invalid user details"
+            return jsonify(message), 400
 
 
 # Fetch a user based on id
