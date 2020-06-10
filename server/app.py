@@ -105,7 +105,8 @@ def user_login():
         passwordMatch = check_password_hash(retrievedUser['password'], _password)
         if passwordMatch:
             message = "User logged in successfully"
-            return jsonify(message), 200
+            res = dumps(retrievedUser)
+            return res, 200
         else:
             message = "Invalid user details"
             return jsonify(message), 400
