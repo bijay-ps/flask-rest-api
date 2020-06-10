@@ -17,6 +17,13 @@ spec:
       containers:
         - name: flask-api-mongo
           image: mongo
+#          volumeMounts:
+#            - mountPath: "/mnt/azure"
+#              name: flask-db-location
+#      volumes:
+#        - name: flask-db-location
+#          persistentVolumeClaim:
+#            claimName: azure-managed-disk-flask
 ---
 apiVersion: v1
 kind: Service
